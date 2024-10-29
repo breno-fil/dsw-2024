@@ -1,25 +1,129 @@
 body {
-  background: #20262e;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Cor de fundo clara */
+  color: #333333; /* Cor do texto escuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 400px;
   padding: 20px;
-  font-family: Helvetica;
+  background-color: #f7f7f7; /* Cor de fundo do container */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#app {
-  background: #fff;
-  border-radius: 4px;
-  padding: 20px;
-  transition: all 0.2s;
-}
-
-li {
-  margin: 8px 0;
-}
-
-h2 {
+h1 {
+  text-align: center;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin: 16px 0;
+  color: #333333; /* Cor do título */
 }
 
-del {
-  color: rgba(0, 0, 0, 0.3);
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.transaction-form input,
+.transaction-form button {
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.transaction-form input {
+  border: 1px solid #cccccc; /* Cor da borda dos campos de entrada */
+  color: #333333; /* Cor do texto dos campos */
+}
+
+.transaction-form button {
+  background-color: #007bff; /* Cor de fundo do botão */
+  color: #ffffff; /* Cor do texto do botão */
+  border: none;
+  cursor: pointer;
+}
+
+.transaction-form button:hover {
+  background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+}
+
+.transaction-list {
+  margin-top: 20px;
+}
+
+.transaction-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid #eaeaea; /* Linha divisória */
+}
+
+.transaction-list li.header {
+  font-weight: bold;
+  border-bottom: 1px solid;
+  /* background-color: #FFC15E; */ /* Cor de fundo para o cabeçalho */
+}
+
+.transaction-list li .description,
+.transaction-list li .amount {
+  flex: 1;
+}
+
+.transaction-list li .actions {
+  display: flex;
+  gap: 5px; /* Espaço entre os botões */
+}
+
+.action-button {
+  background: none;
+  border: none;
+  font-size: 18px; /* Tamanho do ícone */
+  cursor: pointer;
+  transition: transform 0.2s; /* Efeito de transição para o hover */
+}
+
+.transaction-list li.credit .description,
+.transaction-list li.credit .amount {
+  color: #28a745; /* Verde para créditos */
+}
+
+.transaction-list li.debit .description,
+.transaction-list li.debit .amount {
+  color: #dc3545; /* Vermelho para débitos */
+}
+
+.transaction-list li.negative-balance {
+  background-color: #f8d7da; /* Fundo para saldo negativo */
+  color: #721c24; /* Texto para saldo negativo */
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.pagination button {
+  padding: 8px;
+  background-color: #007bff; /* Fundo dos botões de paginação */
+  color: #ffffff; /* Cor do texto dos botões de paginação */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #0056b3; /* Fundo dos botões de paginação ao passar o mouse */
 }

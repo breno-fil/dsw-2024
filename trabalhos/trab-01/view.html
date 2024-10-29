@@ -1,17 +1,27 @@
-<div id="app">
-  <h2>Todos:</h2>
-  <ol>
-    <li v-for="todo in todos">
-      <label>
-        <input
-          type="checkbox"
-          v-on:change="toggle(todo)"
-          v-bind:checked="todo.done"
-        />
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Controle de Despesas e Receitas</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.2.1/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h1>Controle de Despesas e Receitas</h1>
+      <transaction-form @add-transaction="addTransaction"></transaction-form>
+      <transaction-list
+        :transactions="paginatedTransactions"
+        :current-page="currentPage"
+        :total-pages="totalPages"
+        @remove-transaction="removeTransaction"
+        @move-up="moveUp"
+        @move-down="moveDown"
+        @change-page="changePage"
+      ></transaction-list>
+    </div>
 
-        <del v-if="todo.done"> {{ todo.text }} </del>
-        <span v-else> {{ todo.text }} </span>
-      </label>
-    </li>
-  </ol>
-</div>
+    <script src="app.js"></script>
+  </body>
+</html>
