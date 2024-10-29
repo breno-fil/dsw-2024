@@ -34,7 +34,7 @@ Vue.component('transaction-list', {
                 <li v-for="(transaction, index) in transactions" :key="index"
                     :class="getClass(transaction)">
                     <span class="description">{{ transaction.description }}</span>
-                    <span class="amount">{{ formattedAmount(transaction.amount) }}</span>
+                    <span class="amount">{{ formattedAmount(transaction.amount, index) }}</span>
                     <span class="actions">
                         <button @click="remove(index)" title="Remover" class="action-button remove-button">&#10060;</button>
                         <button @click="moveUp(index)" :disabled="index === 0" title="Subir" class="action-button move-up-button">&#8593;</button>
@@ -57,7 +57,12 @@ Vue.component('transaction-list', {
                 'negative-balance': transaction.cumulativeBalance < 0,
             };
         },
-        formattedAmount(amount) {
+        formattedAmount(amount, index) {
+        		
+            sliced_transactions = this.transactions.slice(0, (index+1))
+            
+            amount = sliced_transactions.reduce((sum, t) => sum += t.amount, 0)
+        		
             return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         },
         remove(index) {
