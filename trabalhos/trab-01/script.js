@@ -51,18 +51,27 @@ Vue.component('transaction-list', {
     `,
     methods: {
         getClass(transaction) {
-            return {
+        
+        		const credit = transaction.amount > 0;
+            const debit = transaction.amount < 0;
+            const negative = transaction.cumulativeBalance < 0;
+  					
+            if (negative) return 'negative-balance';
+            
+            if (debit) return 'debit';
+            
+            if (credit) return 'credit';
+           
+            
+           /*  return {
                 credit: transaction.amount > 0,
                 debit: transaction.amount < 0,
                 'negative-balance': transaction.cumulativeBalance < 0,
-            };
+            }; */
         },
         formattedAmount(amount, index) {
-        		
-            sliced_transactions = this.transactions.slice(0, (index+1))
-            
-            amount = sliced_transactions.reduce((sum, t) => sum += t.amount, 0)
-        		
+            transactions = this.transactions.slice(0, (index+1));
+            amount = transactions.reduce((sum, t) => sum += t.amount, 0);
             return amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         },
         remove(index) {
@@ -109,20 +118,34 @@ new Vue({
             this.updateBalances();
         },
         moveUp(index) {
-            const actualIndex = (this.currentPage - 1) * this.itemsPerPage + index;
-            if (actualIndex > 0) {
-                [this.transactions[actualIndex - 1], this.transactions[actualIndex]] = 
-                    [this.transactions[actualIndex], this.transactions[actualIndex - 1]];
-                this.updateBalances();
+            const currentIndex = (this.currentPage - 1) * this.itemsPerPage + index;
+            const previousIndex = (currentIndex - 1 < 0) ? 0 : (currentIndex - 1);
+						
+            if (currentIndex > 0) {
+              let currentTransaction = this.transactions[currentIndex];
+            	let previousTransaction = this.transactions[previousIndex];
+
+              this.transactions.splice(previousIndex, 1, currentTransaction);
+              this.transactions.splice(currentIndex, 1, previousTransaction);
+              
+            	this.updateBalances();
             }
         },
         moveDown(index) {
-            const actualIndex = (this.currentPage - 1) * this.itemsPerPage + index;
-            if (actualIndex < this.transactions.length - 1) {
-                [this.transactions[actualIndex], this.transactions[actualIndex + 1]] = 
-                    [this.transactions[actualIndex + 1], this.transactions[actualIndex]];
-                this.updateBalances();
-            }
+						const totalTransactions = this.transactions.length
+        
+            const currentIndex = (this.currentPage - 1) * this.itemsPerPage + index;
+            const nextIndex = (currentIndex + 1 > totalTransactions) ? (totalTransactions - 1) : (currentIndex + 1);
+            
+            if (currentIndex < totalTransactions) {
+              let currentTransaction = this.transactions[currentIndex];
+            	let nextTransaction = this.transactions[nextIndex];
+
+              this.transactions.splice(currentIndex, 1, nextTransaction);
+              this.transactions.splice(nextIndex, 1, currentTransaction);
+              
+            	this.updateBalances();
+             }
         },
         changePage(page) {
             if (page >= 1 && page <= this.totalPages) {

@@ -106,7 +106,7 @@ h1 {
 
 .transaction-list li.negative-balance {
   background-color: #f8d7da; /* Fundo para saldo negativo */
-  color: #721c24; /* Texto para saldo negativo */
+  color: #eeb600; /* Texto para saldo negativo */
 }
 
 .pagination {
